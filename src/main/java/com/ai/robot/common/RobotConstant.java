@@ -1,0 +1,14 @@
+package com.ai.robot.common;
+
+public class RobotConstant {
+	public final static String WALK_FORWARD = "F";
+	public final static String WALK_BACKWARD = "B";
+	public final static String WALK_LEFTWARD = "L";
+	public final static String WALK_RIGHTWARD = "R";
+
+	public final static String MQTT_TOPIC_CAR = "mqtt/car";
+	public final static String MQTT_TOPIC_HT = "mqtt/ht";
+	public final static String MQTT_CLIENT_ID = "client_1001";
+	public final static int MQTT_DEFAULT_QOS = 2; // 保证消息能到达一次
+
+}
