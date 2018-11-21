@@ -11,4 +11,6 @@ public class RobotConstant {
 	public final static String MQTT_CLIENT_ID = "client_1001";
 	public final static int MQTT_DEFAULT_QOS = 2; // 保证消息能到达一次
 
+	public final static String SOCKET_EVENT_HT = "ht";
+	public final static String SOCKET_EVENT_CAR = "car";
 }

@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
-import com.ai.robot.common.RobotEndpointConfigure;
+import com.corundumstudio.socketio.SocketIOServer;
+import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
 
 @SpringBootApplication
 @Configuration
@@ -17,12 +17,15 @@ public class SpringbootApplication {
 	}
 
 	@Bean
-	public ServerEndpointExporter serverEndpointExporter() {
-		return new ServerEndpointExporter();
+	public SocketIOServer socketIOServer() {
+		com.corundumstudio.socketio.Configuration configuration = new com.corundumstudio.socketio.Configuration();
+		configuration.setPort(8990);
+		final SocketIOServer socketIOServer = new SocketIOServer(configuration);
+		return socketIOServer;
 	}
-	
+
 	@Bean
-	public RobotEndpointConfigure newConfigure() {
-		return new RobotEndpointConfigure();
+	public SpringAnnotationScanner springAnnotationScanner(SocketIOServer socketIOServer) {
+		return new SpringAnnotationScanner(socketIOServer);
 	}
 }
