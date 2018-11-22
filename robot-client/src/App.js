@@ -14,14 +14,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let message;
     socket.on('ht', (data) => {
-      this.setState({message: message += '\n' + data});
+      this.setState({message: new Date().getTime() + '->' + data});
     });
   }
 
   runCar(direction) {
-    socket.emit('car', direction);
+    const message = {
+      car: {
+          direction: direction
+      }
+    };
+    socket.emit('car', JSON.stringify(message));
   }
 
   render() {
