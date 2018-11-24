@@ -34,7 +34,10 @@ public class SocketHandlerController {
 			
 			@Override
 			public void messageArrived(String topic, MqttMessage message) throws Exception {
-				socketIOClient.sendEvent(RobotConstant.SOCKET_EVENT_HT, new String(message.getPayload()));
+				clients.removeIf(client -> !client.isChannelOpen());
+				clients.forEach(client -> {
+					client.sendEvent(RobotConstant.SOCKET_EVENT_HT, new String(message.getPayload()));
+				});
 			}
 			
 			@Override
@@ -56,7 +59,6 @@ public class SocketHandlerController {
 	
 	@OnEvent(value = RobotConstant.SOCKET_EVENT_CAR)
 	public void onEvent(SocketIOClient socketIOClient, AckRequest ackRequest, String data) throws MqttPersistenceException, MqttException {
-		clients.removeIf(client -> !client.isChannelOpen());
 		mqttPushClient.publish(RobotConstant.MQTT_TOPIC_CAR, data);
 	}
 }

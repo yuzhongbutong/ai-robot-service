@@ -57,7 +57,7 @@ def on_message(client, user_data, message):
 def publish():
     while True:
         # ht_data = myHumiture.getDataOfTH()
-        ht_data = {"temp": 28, "humi": 80};
+        ht_data = {"temp": 28, "humi": 80, "time": time.asctime( time.localtime(time.time()) )};
         if ht_data is not None:
             mqtt_client.publish(mqtt_topic_ht, json.dumps(ht_data))
         time.sleep(5)

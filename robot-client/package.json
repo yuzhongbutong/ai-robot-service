@@ -45,6 +45,9 @@
     "react-bootstrap": "^0.32.4",
     "react-dev-utils": "^6.1.1",
     "react-dom": "^16.6.3",
+    "react-redux": "^5.1.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "resolve": "1.8.1",
     "sass-loader": "7.1.0",
     "socket.io-client": "^2.1.1",
@@ -116,5 +119,8 @@
       "react-app"
     ]
   },
-  "proxy": "http://localhost:8989"
+  "proxy": "http://localhost:8989",
+  "devDependencies": {
+    "redux-logger": "^3.0.6"
+  }
 }
