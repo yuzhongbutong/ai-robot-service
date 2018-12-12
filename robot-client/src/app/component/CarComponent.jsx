@@ -15,6 +15,7 @@ class CarComponent extends Component {
     return (
       <div>
         <button className="btn btn-success" onClick={this.moveCar.bind(this, 'F')}>Forward</button>
+        <button className="btn btn-success" onClick={this.moveCar.bind(this, 'S')}>Stop</button>
       </div>
     )
   }
