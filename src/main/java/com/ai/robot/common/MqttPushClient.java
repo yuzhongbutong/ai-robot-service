@@ -29,15 +29,14 @@ public class MqttPushClient {
 
 	public void connect(ApplicationConfig config) throws MqttSecurityException, MqttException {
 		MqttClient client = new MqttClient(config.getHost(), RobotConstant.MQTT_CLIENT_ID, new MemoryPersistence());
+		setClient(client);
 		MqttConnectOptions options = new MqttConnectOptions();
-		options.setCleanSession(false);
+		options.setCleanSession(true);
 		options.setUserName(config.getUsername());
 		options.setPassword(config.getPassword().toCharArray());
 		options.setConnectionTimeout(1000);
 		options.setKeepAliveInterval(2000);
-		setClient(client);
 		client.connect(options);
-		client.subscribe(RobotConstant.MQTT_TOPIC_HT);
 	}
 
 	public void publish(String strTopic, String pushMessage) throws MqttPersistenceException, MqttException {
