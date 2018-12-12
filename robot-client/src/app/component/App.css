@@ -1,0 +1,12 @@
+.app-container {
+    color: white;
+}
+
+.app-container-title {
+    margin-left: 10px;
+    font-size: 20pt;
+}
+
+.app-content {
+    margin-top: 50px;
+}

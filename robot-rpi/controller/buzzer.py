@@ -1,10 +1,12 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import RPi.GPIO as gpio
 import time
 from threading import Timer
 
-alert_interval = 0.1
+ALERT_INTERVAL = 0.1
+
 timer = None
 cancel = True
 
@@ -17,39 +19,40 @@ class Buzzer:
         gpio.setup(self._gpio_buzzer, gpio.OUT)
         gpio.output(self._gpio_buzzer, gpio.LOW)
 
-    def makeAlert(self, cycle=1, interval=0.2):
-        if (timer is None):
+    def make_alert(self, cycle=1, interval=0.2):
+        if timer is None:
             for i in range(cycle):
                 gpio.output(self._gpio_buzzer, gpio.HIGH)
-                time.sleep(alert_interval)
+                time.sleep(ALERT_INTERVAL)
                 gpio.output(self._gpio_buzzer, gpio.LOW)
                 time.sleep(interval)
 
-    def makeOnceAlert(self):
-        if (timer is None):
+    def make_once_alert(self):
+        if timer is None:
             gpio.output(self._gpio_buzzer, gpio.HIGH)
-            time.sleep(alert_interval)
+            time.sleep(ALERT_INTERVAL)
             gpio.output(self._gpio_buzzer, gpio.LOW)
 
-    def cancelTimer(self):
+    @staticmethod
+    def cancel_timer():
         global cancel
         cancel = True
         global timer
-        if (timer is not None):
+        if timer is not None:
             timer.cancel()
             timer = None
 
-    def startTimer(self, interval):
-        self.cancelTimer()
+    def start_timer(self, interval):
+        self.cancel_timer()
         global cancel
         cancel = False
-        self.__startAlert(interval)
+        self.__start_alert(interval)
 
-    def __startAlert(self, interval):
+    def __start_alert(self, interval):
         gpio.output(self._gpio_buzzer, gpio.HIGH)
-        time.sleep(alert_interval)
+        time.sleep(ALERT_INTERVAL)
         gpio.output(self._gpio_buzzer, gpio.LOW)
-        if (not cancel):
+        if not cancel:
             global timer
-            timer = Timer(interval, self.__startAlert, (interval,))
+            timer = Timer(interval, self.__start_alert, (interval,))
             timer.start()

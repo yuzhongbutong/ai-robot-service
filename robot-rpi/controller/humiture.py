@@ -1,4 +1,5 @@
 ﻿#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import RPi.GPIO as gpio
 import time
@@ -9,7 +10,7 @@ class Humiture:
         self._channel = gpio_dht11
         gpio.setmode(gpio.BCM)
 
-    def getDataOfTH(self):
+    def get_humiture(self):
         data = []
         j = 0
 
@@ -67,8 +68,8 @@ class Humiture:
         result = {}
         if check == tmp:
             # print "temperature :", temperature, "*C, humidity :", humidity, "%"
-            result["temp"] = temperature
-            result["humi"] = humidity
+            result['temp'] = temperature
+            result['humi'] = humidity
             return result
         else:
             # print "wrong"

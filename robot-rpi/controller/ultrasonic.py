@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import RPi.GPIO as gpio
 import time
@@ -14,7 +15,7 @@ class Ultrasonic:
         gpio.setup(self._gpio_hc[2], gpio.OUT, initial=gpio.LOW)
         gpio.setup(self._gpio_hc[3], gpio.IN)
 
-    def getFrontDistance(self):
+    def get_front_distance(self):
         gpio.output(self._gpio_hc[0], gpio.HIGH)
         time.sleep(0.000015)
         gpio.output(self._gpio_hc[0], gpio.LOW)
@@ -27,7 +28,7 @@ class Ultrasonic:
 
         return (t2 - t1) * 340 / 2
 
-    def getBackDistance(self):
+    def get_back_distance(self):
         gpio.output(self._gpio_hc[2], gpio.HIGH)
         time.sleep(0.000015)
         gpio.output(self._gpio_hc[2], gpio.LOW)
