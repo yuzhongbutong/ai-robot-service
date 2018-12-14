@@ -20,7 +20,7 @@ class AppComponent extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-inverse navbar-fixed-top">
+        <nav className="navbar navbar-inverse navbar-fixed-top app-navbar-blue">
           <div className="container app-container">
             <FontAwesomeIcon icon={faRobot} size="3x"/>
             <span className="app-container-title">Intelligent Robot</span>
