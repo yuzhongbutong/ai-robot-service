@@ -1,0 +1,148 @@
+.app-navbar-blue {
+    background-image: linear-gradient(to bottom, #d77fe4 0%, #349de4 100%);
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.app-container {
+    height: 50px;
+    color: white;
+}
+
+.app-container-title {
+    margin-left: 40px;
+    font-size: 25pt;
+    font-weight: bold;
+}
+
+.app-content {
+    margin-top: 50px;
+    /*border: 1px solid black;*/
+}
+
+.menu-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.menu-container > .menu-wrapper {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    border-radius: 50%;
+    background: transparent;
+    pointer-events: auto;
+}
+
+.menu-container > .menu-wrapper:after {
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: 25%;
+    color: transparent;
+    content: ".";
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.menu-container > .menu-wrapper li {
+    width: 80%;
+    height: 80%;
+    top: -30%;
+    left: -30%;
+    position: absolute;
+    overflow: hidden;
+    transform-origin: 100% 100%;
+    pointer-events: none;
+    border: 5px solid white;
+    background-image: linear-gradient(to bottom, #d77fe4 0%, #349de4 100%);
+    opacity: 0.8;
+}
+
+.menu-container > .menu-wrapper li:first-child {
+    transform: rotate(45deg);
+}
+
+.menu-container > .menu-wrapper li:nth-child(2) {
+    transform: rotate(135deg);
+}
+
+.menu-container > .menu-wrapper li:nth-child(3) {
+    transform: rotate(225deg);
+}
+
+.menu-container > .menu-wrapper li:nth-child(4) {
+    transform: rotate(315deg);
+}
+
+.menu-container > .menu-wrapper li > span {
+    width: 100%;
+    height: 40%;
+    left: 20%;
+    bottom: 10%;
+    display: table;
+    position: absolute;
+    pointer-events: auto;
+    text-align: center;
+    transform: rotate(-45deg);
+    color: #FFF;
+    cursor: pointer;
+}
+
+.menu-container > .menu-wrapper li > span > span {
+    display: table-cell;
+    position: absolute;
+    top: 15%;
+    width: 100%;
+}
+
+.menu-container > ul {
+    width: 44%;
+    height: 44%;
+    top: 28%;
+    left: 28%;
+    margin: 0;
+    padding: 0;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.menu-container > ul > li {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    list-style: none;
+    border-radius: 50%;
+    background-image: linear-gradient(to bottom, #d77fe4 0%, #349de4 100%);
+    opacity: 0.8;
+}
+
+.menu-container > ul > li > span {
+    height: 100%;
+    text-align: center;
+    display: block;
+    border-radius: 50%;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.menu-container > ul > li > span > * {
+    height: 100%;
+    line-height: 100%;
+}
+
+@media (max-width: 479px) {
+    .app-container-title {
+        margin-left: 20px;
+        font-size: 20pt;
+    }
+
+    .menu-container > .menu-wrapper li > span > span {
+        top: 0;
+    }
+}
