@@ -1,7 +1,0 @@
-server:
-  port: 8989
-app-config:
-  mqtt:
-    host: tcp://127.0.0.1:61613
-    username: admin
-    password: password
