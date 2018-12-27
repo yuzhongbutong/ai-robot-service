@@ -49,7 +49,7 @@ public class SocketHandlerController {
 			public void connectionLost(Throwable cause) {
 				System.out.println("Connection lost.");
 			}
-		});
+		});;
 	}
 	
 	@OnDisconnect
