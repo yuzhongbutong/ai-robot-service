@@ -1,11 +1,23 @@
 import React, {Component} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faRobot} from '@fortawesome/free-solid-svg-icons';
+import {faChartBar} from '@fortawesome/free-solid-svg-icons';
+import {faGamepad} from '@fortawesome/free-solid-svg-icons';
+import {faComment} from '@fortawesome/free-solid-svg-icons';
 import './App.css';
-import Humiture from './../container/Humiture';
-import Car from './../container/Car';
+import Constant from './../common/Constant';
+import Humiture from './../container/monitor/Humiture';
+import Car from './../container/control/Car';
+import Chat from './../container/chat/Chat';
 
 class AppComponent extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      tabIndex: Constant.INDEX_TAB_2
+    };
+  }
 
   componentDidMount() {
     const {setSocket, setHumiture} = this.props;
@@ -17,7 +29,22 @@ class AppComponent extends Component {
     setSocket(socket);
   }
 
+  setTab(index) {
+    this.setState({
+      tabIndex: index
+    });
+  }
+
   render() {
+    let tab;
+    if (this.state.tabIndex === Constant.INDEX_TAB_0) {
+      tab = <Humiture/>;
+    } else if (this.state.tabIndex === Constant.INDEX_TAB_1) {
+      tab = <Car/>;
+    } else if (this.state.tabIndex === Constant.INDEX_TAB_2) {
+      tab = <Chat/>;
+    }
+
     return (
       <div>
         <nav className="navbar navbar-inverse navbar-fixed-top app-navbar-blue">
@@ -27,9 +54,30 @@ class AppComponent extends Component {
           </div>
         </nav>
         <div className="app-content">
-          <Humiture/>
-          <Car/>
+          {tab}
         </div>
+        <nav className="navbar navbar-inverse navbar-fixed-bottom app-navbar-white">
+          <ul className="nav nav-tabs app-nav-tabs row-no-gutters">
+            <li className={`col-xs-4 ${this.state.tabIndex === Constant.INDEX_TAB_0 ? 'active' : null}`}>
+              <span onClick={() => this.setTab(Constant.INDEX_TAB_0)}>
+                <FontAwesomeIcon icon={faChartBar}/>
+                <span>Monitor</span>
+              </span>
+            </li>
+            <li className={`col-xs-4 ${this.state.tabIndex === Constant.INDEX_TAB_1 ? 'active' : null}`}>
+              <span onClick={() => this.setTab(Constant.INDEX_TAB_1)}>
+                <FontAwesomeIcon icon={faGamepad}/>
+                <span>Control</span>
+              </span>
+            </li>
+            <li className={`col-xs-4 ${this.state.tabIndex === Constant.INDEX_TAB_2 ? 'active' : null}`}>
+              <span onClick={() => this.setTab(Constant.INDEX_TAB_2)}>
+                <FontAwesomeIcon icon={faComment}/>
+                <span>Chat</span>
+              </span>
+            </li>
+          </ul>
+        </nav>
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {setSocket, setHumiture} from '../../model/action';
+import {setSocket, setHumiture} from './../../model/action';
 import AppComponent from './../component/AppComponent';
 
 function mapStateToProps(state) {
