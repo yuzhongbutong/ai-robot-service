@@ -37,8 +37,8 @@ class ChatComponent extends Component {
   }
 
   handleRefresh() {
-    const {chatReducer, setMessages} = this.props;
-    setMessages(chatReducer.messages.slice(0, 1));
+    const {messages, setMessages} = this.props;
+    setMessages(messages.slice(0, 1));
     this.handleClose();
   }
 

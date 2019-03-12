@@ -3,7 +3,7 @@ import HumitureComponent from './../../component/monitor/HumitureComponent';
 
 function mapStateToProps(state) {
   return {
-    humitureReducer: state.humitureReducer
+    humiture: state.humitureReducer.humiture
   };
 }
 

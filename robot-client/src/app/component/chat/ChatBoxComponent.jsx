@@ -11,7 +11,7 @@ class ChatBoxComponent extends Component {
   }
 
   render() {
-    const {messages} = this.props.chatReducer;
+    const {messages} = this.props;
     return (
       <ul className="chat-box-root">
         {messages.map((item, index) => (

@@ -16,8 +16,8 @@ class ChatInteractiveComponent extends Component {
       isVoice: false
     };
 
-    const {chatReducer, pushMessage} = this.props;
-    if (chatReducer.messages.length === 0) {
+    const {messages, pushMessage} = this.props;
+    if (messages.length === 0) {
       pushMessage({
         from: Constant.MSG_FROM_ROBOT,
         text: 'Welcome to the AI chat.',
@@ -99,14 +99,14 @@ class ChatInteractiveComponent extends Component {
       }
     }
     if (command) {
-      const {appReducer, setDirection} = this.props;
+      const {socket, setDirection} = this.props;
     setDirection(command);
       const message = {
         car: {
           direction: command
         }
       };
-      appReducer.socket.emit('car', JSON.stringify(message));
+      socket.emit('car', JSON.stringify(message));
       content = `Execute command: [${text}]`;
     } else {
       content = 'Sorry, I didn\'t understand. Could you try to rephrasing?';

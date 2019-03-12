@@ -5,7 +5,7 @@ const HumitureReducer = (state = {}, action) => {
     case SET_HUMITURE:
       const {humiture} = action;
       return {
-        humiture: {...humiture}
+        humiture: humiture
       };
     default:
       return state;

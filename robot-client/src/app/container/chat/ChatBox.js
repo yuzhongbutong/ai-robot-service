@@ -3,7 +3,7 @@ import ChatBoxComponent from './../../component/chat/ChatBoxComponent';
 
 function mapStateToProps(state) {
   return {
-    chatReducer: state.chatReducer
+    messages: state.chatReducer.messages
   };
 }
 

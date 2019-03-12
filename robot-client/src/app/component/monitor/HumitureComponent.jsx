@@ -136,7 +136,7 @@ class HumitureComponent extends Component {
   }
 
   componentDidUpdate() {
-    const {temp, humi} = this.props.humitureReducer.humiture;
+    const {temp, humi} = this.props.humiture;
     const temperatureOption = this.temperatureChart.getOption();
     temperatureOption.series[0].data[0].value = temp;
     this.temperatureChart.setOption(temperatureOption);

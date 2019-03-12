@@ -4,8 +4,8 @@ import {setDirection, pushMessage} from './../../../model/action';
 
 function mapStateToProps(state) {
   return {
-    appReducer: state.appReducer,
-    chatReducer: state.chatReducer
+    socket: state.appReducer.socket,
+    messages: state.chatReducer.messages
   };
 }
 

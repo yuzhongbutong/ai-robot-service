@@ -4,8 +4,8 @@ import {setDirection} from './../../../model/action';
 
 function mapStateToProps(state) {
   return {
-    appReducer: state.appReducer,
-    carReducer: state.carReducer
+    socket: state.appReducer.socket,
+    direction: state.carReducer.direction
   };
 }
 

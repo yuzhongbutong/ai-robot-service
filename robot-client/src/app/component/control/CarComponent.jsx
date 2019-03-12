@@ -35,18 +35,18 @@ class CarComponent extends Component {
   }
 
   moveCar = (direction) => {
-    const {appReducer, setDirection} = this.props;
+    const {socket, setDirection} = this.props;
     setDirection(direction);
     const message = {
       car: {
         direction: direction
       }
     };
-    appReducer.socket.emit('car', JSON.stringify(message));
+    socket.emit('car', JSON.stringify(message));
   }
 
   render() {
-    const {direction} = this.props.carReducer;
+    const {direction} = this.props;
     return (
       <div>
         <div className="menu-icon-parent">

@@ -4,7 +4,7 @@ import {setMessages} from './../../../model/action';
 
 function mapStateToProps(state) {
   return {
-    chatReducer: state.chatReducer
+    messages: state.chatReducer.messages
   };
 }
 
