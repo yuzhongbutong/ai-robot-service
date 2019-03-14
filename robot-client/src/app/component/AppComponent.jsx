@@ -15,7 +15,7 @@ class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabIndex: Constant.INDEX_TAB_2
+      tabIndex: Constant.INDEX_TAB_0
     };
   }
 
@@ -47,7 +47,7 @@ class AppComponent extends Component {
 
     return (
       <div>
-        <nav className="navbar navbar-inverse navbar-fixed-top app-navbar-blue">
+        <nav className="navbar navbar-fixed-top app-navbar-blue">
           <div className="container app-container">
             <FontAwesomeIcon icon={faRobot} size="3x"/>
             <span className="app-container-title">Intelligent Robot</span>
@@ -56,7 +56,7 @@ class AppComponent extends Component {
         <div className="app-content">
           {tab}
         </div>
-        <nav className="navbar navbar-inverse navbar-fixed-bottom app-navbar-white">
+        <nav className="navbar navbar-fixed-bottom app-navbar-white">
           <ul className="nav nav-tabs app-nav-tabs row-no-gutters">
             <li className={`col-xs-4 ${this.state.tabIndex === Constant.INDEX_TAB_0 ? 'active' : null}`}>
               <span onClick={() => this.setTab(Constant.INDEX_TAB_0)}>

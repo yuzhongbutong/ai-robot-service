@@ -58,7 +58,7 @@ public class SocketHandlerController {
 	}
 	
 	@OnEvent(value = RobotConstant.SOCKET_EVENT_CAR)
-	public void onEvent(SocketIOClient socketIOClient, AckRequest ackRequest, String data) throws MqttPersistenceException, MqttException {
+	public void onEventCar(SocketIOClient socketIOClient, AckRequest ackRequest, String data) throws MqttPersistenceException, MqttException {
 		mqttPushClient.publish(RobotConstant.MQTT_TOPIC_CAR, data);
 	}
 }

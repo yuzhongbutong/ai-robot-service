@@ -80,7 +80,7 @@
     margin: 10px 0;
 }
 
-.menu-icon-parent  svg {
+.menu-icon-parent svg {
     color: #d596f6;
 }
 
@@ -368,6 +368,10 @@
         padding: 0;
     }
 
+    .chat-box {
+        border: none;
+    }
+
     .chat-card-root {
         height: auto;
     }
@@ -395,8 +399,8 @@
         display: none;
     }
 
-    .chat-message-root {
-        height: calc(100% - 95px);
+    .chat-right-panel {
+        height: calc(100% - 50px);
     }
 }
 

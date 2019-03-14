@@ -3,7 +3,6 @@ import {Overlay, Tooltip} from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMicrophone} from '@fortawesome/free-solid-svg-icons';
 import {faKeyboard} from '@fortawesome/free-solid-svg-icons';
-
 import Constant from './../../common/Constant';
 
 class ChatInteractiveComponent extends Component {
@@ -21,7 +20,7 @@ class ChatInteractiveComponent extends Component {
       pushMessage({
         from: Constant.MSG_FROM_ROBOT,
         text: 'Welcome to the AI chat.',
-        time: this.getDateTime()
+        time: new Date().format(Constant.MSG_TIME_FORMAT)
       });
     }
   }
@@ -44,11 +43,6 @@ class ChatInteractiveComponent extends Component {
     this.setState({
       isVoice: !isVoice
     });
-  }
-
-  getDateTime() {
-    const date = new Date();
-    return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
   }
 
   sendMessage(event) {
@@ -100,7 +94,7 @@ class ChatInteractiveComponent extends Component {
     }
     if (command) {
       const {socket, setDirection} = this.props;
-    setDirection(command);
+      setDirection(command);
       const message = {
         car: {
           direction: command
@@ -119,7 +113,7 @@ class ChatInteractiveComponent extends Component {
     pushMessage({
       from: from,
       text: content,
-      time: this.getDateTime()
+      time: new Date().format(Constant.MSG_TIME_FORMAT)
     });
   }
 

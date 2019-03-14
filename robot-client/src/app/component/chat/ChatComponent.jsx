@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSyncAlt} from '@fortawesome/free-solid-svg-icons';
 import avatar_robot from './../../image/avatar_robot.png';
 import avatar_custom from './../../image/avatar_custom.jpg';
+import Constant from './../../common/Constant';
 
 import ChatBox from './../../container/chat/ChatBox';
 import ChatInteractive from './../../container/chat/ChatInteractive';
@@ -38,7 +39,9 @@ class ChatComponent extends Component {
 
   handleRefresh() {
     const {messages, setMessages} = this.props;
-    setMessages(messages.slice(0, 1));
+    const initMessage = messages[0];
+    initMessage.time = new Date().format(Constant.MSG_TIME_FORMAT);
+    setMessages([initMessage]);
     this.handleClose();
   }
 
