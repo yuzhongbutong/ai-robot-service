@@ -15,11 +15,9 @@ class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabIndex: Constant.INDEX_TAB_0
+      tabIndex: Constant.INDEX_TAB_2
     };
-  }
 
-  componentDidMount() {
     const {setSocket, setHumiture} = this.props;
     const socket = require('socket.io-client')(':8990');
     socket.on('ht', (data) => {

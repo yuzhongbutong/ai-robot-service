@@ -12,11 +12,12 @@ import org.eclipse.paho.client.mqttv3.MqttTopic;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.stereotype.Component;
 
-import com.ai.robot.entity.ApplicationConfig;
+import io.github.cdimascio.dotenv.Dotenv;
 
 @Component
 public class MqttPushClient {
 
+	private Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 	private static MqttClient client;
 
 	public MqttClient getClient() {
@@ -27,13 +28,13 @@ public class MqttPushClient {
 		MqttPushClient.client = client;
 	}
 
-	public void connect(ApplicationConfig config) throws MqttSecurityException, MqttException {
-		MqttClient client = new MqttClient(config.getHost(), RobotConstant.MQTT_CLIENT_ID, new MemoryPersistence());
+	public void connect() throws MqttSecurityException, MqttException {
+		MqttClient client = new MqttClient(this.dotenv.get("MQTT_ADDRESS"), RobotConstant.MQTT_CLIENT_ID, new MemoryPersistence());
 		setClient(client);
 		MqttConnectOptions options = new MqttConnectOptions();
 		options.setCleanSession(true);
-		options.setUserName(config.getUsername());
-		options.setPassword(config.getPassword().toCharArray());
+		options.setUserName(this.dotenv.get("MQTT_USERNAME"));
+		options.setPassword(this.dotenv.get("MQTT_PASSWORD").toCharArray());
 		options.setConnectionTimeout(1000);
 		options.setKeepAliveInterval(2000);
 		client.connect(options);

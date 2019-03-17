@@ -9,10 +9,14 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import com.ai.robot.common.MqttPushClient;
 import com.ai.robot.common.RobotConstant;
+import com.ai.robot.service.VoiceService;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.annotation.OnConnect;
@@ -21,17 +25,21 @@ import com.corundumstudio.socketio.annotation.OnEvent;
 
 @Component
 public class SocketHandlerController {
-	
+
 	@Autowired
 	private MqttPushClient mqttPushClient;
 
+	@Autowired
+	@Qualifier("iflytekVoiceServiceImpl")
+	private VoiceService voiceService;
+
 	private static List<SocketIOClient> clients = new ArrayList<SocketIOClient>();
-	
+
 	@OnConnect
 	public void onConnect(SocketIOClient socketIOClient) throws MqttException {
 		clients.add(socketIOClient);
 		mqttPushClient.subscribe(RobotConstant.MQTT_TOPIC_HT, new MqttCallback() {
-			
+
 			@Override
 			public void messageArrived(String topic, MqttMessage message) throws Exception {
 				clients.removeIf(client -> !client.isChannelOpen());
@@ -39,26 +47,38 @@ public class SocketHandlerController {
 					client.sendEvent(RobotConstant.SOCKET_EVENT_HT, new String(message.getPayload()));
 				});
 			}
-			
+
 			@Override
 			public void deliveryComplete(IMqttDeliveryToken token) {
 				System.out.println("Delivery completed.");
 			}
-			
+
 			@Override
 			public void connectionLost(Throwable cause) {
 				System.out.println("Connection lost.");
 			}
 		});
 	}
-	
+
 	@OnDisconnect
 	public void onDisconnect(SocketIOClient socketIOClient) {
 		clients.remove(socketIOClient);
 	}
-	
+
 	@OnEvent(value = RobotConstant.SOCKET_EVENT_CAR)
-	public void onEventCar(SocketIOClient socketIOClient, AckRequest ackRequest, String data) throws MqttPersistenceException, MqttException {
+	public void onEventCar(SocketIOClient socketIOClient, AckRequest ackRequest, String data)
+			throws MqttPersistenceException, MqttException {
 		mqttPushClient.publish(RobotConstant.MQTT_TOPIC_CAR, data);
+	}
+
+	@OnEvent(value = RobotConstant.SOCKET_EVENT_AUDIO)
+	public void onEventAudio(SocketIOClient socketIOClient, AckRequest ackRequest, byte[] data) throws JSONException {
+		String text = null;
+		String strResult = this.voiceService.getTextByAudio(data);
+		if (strResult != null && !strResult.isEmpty()) {
+			JSONObject result = new JSONObject(strResult);
+			text = (String) result.get("data");
+		}
+		socketIOClient.sendEvent(RobotConstant.SOCKET_EVENT_AUDIO, text);
 	}
 }

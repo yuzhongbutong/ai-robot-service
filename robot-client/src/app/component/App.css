@@ -229,14 +229,14 @@
 .chat-box {
     max-width: 800px;
     height: 100%;
-    border: 1px #8080804d solid;
+    border: 1px #e1e1e1 solid;
     border-radius: 3px;
     margin: auto;
 }
 
 .chat-card-root {
     height: 100%;
-    background: #80808026;
+    background: #ebebeb;
 }
 
 .chat-card-container {

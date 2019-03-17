@@ -3,6 +3,7 @@ import {Overlay, Tooltip} from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMicrophone} from '@fortawesome/free-solid-svg-icons';
 import {faKeyboard} from '@fortawesome/free-solid-svg-icons';
+import AudioRecorder from './../../common/AudioRecorder';
 import Constant from './../../common/Constant';
 
 class ChatInteractiveComponent extends Component {
@@ -12,7 +13,7 @@ class ChatInteractiveComponent extends Component {
     this.attachRef = target => this.setState({target});
     this.state = {
       draftMessage: '',
-      isVoice: false
+      isVoice: true
     };
 
     const {messages, pushMessage} = this.props;
@@ -23,6 +24,20 @@ class ChatInteractiveComponent extends Component {
         time: new Date().format(Constant.MSG_TIME_FORMAT)
       });
     }
+
+    this.audioRecorder = new AudioRecorder();
+  }
+
+  componentDidMount() {
+    const {socket} = this.props;
+    socket.on('audio', (data) => {
+      if (data) {
+        this.pushMessage(data, Constant.MSG_FROM_CUSTOM);
+        this.setResponse(data);
+      } else {
+        this.pushMessage('Sorry, I can\'t recognize your voice. Please try again.', Constant.MSG_FROM_ROBOT);
+      }
+    });
   }
 
   componentDidUpdate() {
@@ -72,11 +87,11 @@ class ChatInteractiveComponent extends Component {
     });
   }
 
-  setResponse(draftMessage) {
-    const upperDraftMessage = draftMessage.toUpperCase();
+  setResponse(msgText) {
+    const upperDraftMessage = msgText.toUpperCase();
     const commandKeys = Object.keys(Constant.CAR_COMMAND);
     let command, text, content;
-    if (draftMessage.length === 1) {
+    if (msgText.length === 1) {
       if (commandKeys.indexOf(upperDraftMessage) !== -1) {
         command = upperDraftMessage;
         text = Constant.CAR_COMMAND[upperDraftMessage].value;
@@ -108,20 +123,35 @@ class ChatInteractiveComponent extends Component {
     this.pushMessage(content, Constant.MSG_FROM_ROBOT);
   }
 
-  pushMessage(content, from) {
+  pushMessage(msgText, from) {
     const {pushMessage} = this.props;
     pushMessage({
       from: from,
-      text: content,
+      text: msgText,
       time: new Date().format(Constant.MSG_TIME_FORMAT)
     });
+  }
+
+  startOrStop() {
+    if (this.isRecording) {
+      this.audioRecorder.stop((blob) => {
+        this.isRecording = false;
+        const {socket} = this.props;
+        socket.emit('audio', blob);
+      });
+    } else {
+      this.isRecording = true;
+      this.audioRecorder.start();
+    }
   }
 
   render() {
     const {isVoice, draftMessage} = this.state;
     let inputWay;
     if (isVoice) {
-      inputWay = <button className="btn btn-info chat-interactive-voice">Hold down to speak ...</button>;
+      inputWay =
+        <button className="btn btn-info chat-interactive-voice" onClick={() => this.startOrStop()}>Hold down to speak
+          ...</button>;
     } else {
       const {isTextEmpty, target} = this.state;
       inputWay = <>

@@ -28,5 +28,5 @@ export default {
 
   MSG_FROM_ROBOT: 'robot',
   MSG_FROM_CUSTOM: 'custom',
-  MSG_TIME_FORMAT: 'hh:mm:ss'
+  MSG_TIME_FORMAT: 'hh:mm:ss',
 };
