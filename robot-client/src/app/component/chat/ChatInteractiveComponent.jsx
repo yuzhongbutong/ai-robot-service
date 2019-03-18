@@ -38,6 +38,16 @@ class ChatInteractiveComponent extends Component {
         this.pushMessage('Sorry, I can\'t recognize your voice. Please try again.', Constant.MSG_FROM_ROBOT);
       }
     });
+    socket.on('analyzer', (data) => {
+      let content;
+      if (data) {
+        content = data;
+      } else {
+        content = 'Sorry, I didn\'t understand. Could you try to rephrasing?';
+      }
+      this.pushMessage(content, Constant.MSG_FROM_ROBOT);
+    });
+
   }
 
   componentDidUpdate() {
@@ -90,7 +100,7 @@ class ChatInteractiveComponent extends Component {
   setResponse(msgText) {
     const upperDraftMessage = msgText.toUpperCase();
     const commandKeys = Object.keys(Constant.CAR_COMMAND);
-    let command, text, content;
+    let command, text;
     if (msgText.length === 1) {
       if (commandKeys.indexOf(upperDraftMessage) !== -1) {
         command = upperDraftMessage;
@@ -107,8 +117,8 @@ class ChatInteractiveComponent extends Component {
         }
       }
     }
+    const {socket, setDirection} = this.props;
     if (command) {
-      const {socket, setDirection} = this.props;
       setDirection(command);
       const message = {
         car: {
@@ -116,11 +126,11 @@ class ChatInteractiveComponent extends Component {
         }
       };
       socket.emit('car', JSON.stringify(message));
-      content = `Execute command: [${text}]`;
+      const content = `Execute command: [${text}]`;
+      this.pushMessage(content, Constant.MSG_FROM_ROBOT);
     } else {
-      content = 'Sorry, I didn\'t understand. Could you try to rephrasing?';
+      socket.emit('analyzer', msgText);
     }
-    this.pushMessage(content, Constant.MSG_FROM_ROBOT);
   }
 
   pushMessage(msgText, from) {

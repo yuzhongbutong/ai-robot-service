@@ -10,6 +10,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
@@ -77,8 +78,32 @@ public class SocketHandlerController {
 		String strResult = this.voiceService.getTextByAudio(data);
 		if (strResult != null && !strResult.isEmpty()) {
 			JSONObject result = new JSONObject(strResult);
-			text = (String) result.get("data");
+			text = result.getString("data");
 		}
 		socketIOClient.sendEvent(RobotConstant.SOCKET_EVENT_AUDIO, text);
+	}
+
+	@OnEvent(value = RobotConstant.SOCKET_EVENT_ANALYZER)
+	public void onEventAnalyzer(SocketIOClient socketIOClient, AckRequest ackRequest, String inputText)
+			throws JSONException {
+		String text = null;
+		String strResult = this.voiceService.getAnswerByAnalyzer(inputText);
+		if (strResult != null && !strResult.isEmpty()) {
+			JSONObject result = new JSONObject(strResult);
+			JSONArray dataArray = result.getJSONArray("data");
+			if (dataArray != null && !dataArray.isNull(0)) {
+				JSONObject data = dataArray.getJSONObject(0);
+				if (data != null && !data.isNull("intent")) {
+					JSONObject intent = data.getJSONObject("intent");
+					if (intent != null && !intent.isNull("answer")) {
+						JSONObject answer = intent.getJSONObject("answer");
+						if (answer != null && !answer.isNull("text")) {
+							text = answer.getString("text");
+						}
+					}
+				}
+			}
+		}
+		socketIOClient.sendEvent(RobotConstant.SOCKET_EVENT_ANALYZER, text);
 	}
 }

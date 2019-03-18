@@ -14,4 +14,5 @@ public class RobotConstant {
 	public final static String SOCKET_EVENT_HT = "ht";
 	public final static String SOCKET_EVENT_CAR = "car";
 	public final static String SOCKET_EVENT_AUDIO = "audio";
+	public final static String SOCKET_EVENT_ANALYZER = "analyzer";
 }

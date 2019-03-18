@@ -6,23 +6,23 @@ export default {
   CAR_COMMAND: {
     F: {
       value: 'FORWARD',
-      keywords: ['FORWARD', 'GO', 'RUN']
+      keywords: ['FORWARD', 'GO', 'RUN', '前']
     },
     R: {
       value: 'RIGHTWARD',
-      keywords: ['RIGHTWARD', 'RIGHT']
+      keywords: ['RIGHTWARD', 'RIGHT', '右']
     },
     B: {
       value: 'BACKWARD',
-      keywords: ['BACKWARD', 'BACK']
+      keywords: ['BACKWARD', 'BACK', '后']
     },
     L: {
       value: 'LEFTWARD',
-      keywords: ['LEFTWARD', 'LEFT']
+      keywords: ['LEFTWARD', 'LEFT', '左']
     },
     S: {
       value: 'STOP',
-      keywords: ['STOP', 'PAUSE']
+      keywords: ['STOP', 'PAUSE', '停']
     }
   },
 
