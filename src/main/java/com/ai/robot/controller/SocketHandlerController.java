@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.boot.configurationprocessor.json.JSONTokener;
 import org.springframework.stereotype.Component;
 
 import com.ai.robot.common.MqttPushClient;
@@ -86,7 +87,9 @@ public class SocketHandlerController {
 	@OnEvent(value = RobotConstant.SOCKET_EVENT_ANALYZER)
 	public void onEventAnalyzer(SocketIOClient socketIOClient, AckRequest ackRequest, String inputText)
 			throws JSONException {
-		String text = null;
+		JSONObject analyzer = new JSONObject();
+		JSONObject command = new JSONObject();
+		analyzer.put("command", command);
 		String strResult = this.voiceService.getAnswerByAnalyzer(inputText);
 		if (strResult != null && !strResult.isEmpty()) {
 			JSONObject result = new JSONObject(strResult);
@@ -95,15 +98,30 @@ public class SocketHandlerController {
 				JSONObject data = dataArray.getJSONObject(0);
 				if (data != null && !data.isNull("intent")) {
 					JSONObject intent = data.getJSONObject("intent");
-					if (intent != null && !intent.isNull("answer")) {
-						JSONObject answer = intent.getJSONObject("answer");
-						if (answer != null && !answer.isNull("text")) {
-							text = answer.getString("text");
+					if (intent != null) {
+						if (!intent.isNull("answer")) {
+							JSONObject answer = intent.getJSONObject("answer");
+							if (answer != null && !answer.isNull("text")) {
+								analyzer.put("text", answer.getString("text"));
+							}
+						}
+						if (!intent.isNull("semantic")) {
+							String strSemantic = intent.getString("semantic");
+							Object objSemantic = new JSONTokener(strSemantic).nextValue();
+							if (objSemantic instanceof JSONObject) {
+								JSONObject semantic = (JSONObject) objSemantic;
+								if (semantic != null && !semantic.isNull("slots")) {
+									JSONObject slots = semantic.getJSONObject("slots");
+									if (slots != null && !slots.isNull("attrValue")) {
+										command.put("music", slots.getString("attrValue"));
+									}
+								}
+							}
 						}
 					}
 				}
 			}
 		}
-		socketIOClient.sendEvent(RobotConstant.SOCKET_EVENT_ANALYZER, text);
+		socketIOClient.sendEvent(RobotConstant.SOCKET_EVENT_ANALYZER, analyzer.toString());
 	}
 }

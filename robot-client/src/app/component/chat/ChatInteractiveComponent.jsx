@@ -13,7 +13,7 @@ class ChatInteractiveComponent extends Component {
     this.attachRef = target => this.setState({target});
     this.state = {
       draftMessage: '',
-      isVoice: true
+      isVoice: false
     };
 
     const {messages, pushMessage} = this.props;
@@ -40,14 +40,22 @@ class ChatInteractiveComponent extends Component {
     });
     socket.on('analyzer', (data) => {
       let content;
-      if (data) {
-        content = data;
+      const result = JSON.parse(data);
+      if (result.text) {
+        content = result.text;
+        if (result.command.music) {
+          const player = document.querySelector('audio');
+          if (result.command.music === '播放') {
+            player.play();
+          } else if (result.command.music === '停止') {
+            player.pause();
+          }
+        }
       } else {
         content = 'Sorry, I didn\'t understand. Could you try to rephrasing?';
       }
       this.pushMessage(content, Constant.MSG_FROM_ROBOT);
     });
-
   }
 
   componentDidUpdate() {
@@ -176,6 +184,10 @@ class ChatInteractiveComponent extends Component {
 
     return (
       <div className="chat-interactive-root">
+        <audio>
+          <source
+            src="http://dl.stream.qqmusic.qq.com/M500000Ye81T35vEQT.mp3?vkey=531DD2D6FD53201D69F2F68C4E1CB1D1D51D6641ED057A114B0847C97500D3F80E99E57FA9B4BB6640876E06454161C8099C6EA56617F0A5&guid=292413581&uid=0&fromtag=30"/>
+        </audio>
         <button className="btn btn-info chat-interactive-toggle" onClick={() => this.toggleVoice()}>
           <FontAwesomeIcon icon={isVoice ? faKeyboard : faMicrophone}/>
         </button>

@@ -15,7 +15,7 @@ class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabIndex: Constant.INDEX_TAB_2
+      tabIndex: Constant.INDEX_TAB_0
     };
 
     const {setSocket, setHumiture} = this.props;
