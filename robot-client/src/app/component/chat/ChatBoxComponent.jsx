@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import avatar_robot from './../../image/avatar_robot.png';
-import avatar_custom from './../../image/avatar_custom.jpg';
+import avatar_robot from './../../assets/image/avatar_robot.png';
+import avatar_custom from './../../assets/image/avatar_custom.jpg';
 import Constant from './../../common/Constant';
 
 class ChatBoxComponent extends Component {

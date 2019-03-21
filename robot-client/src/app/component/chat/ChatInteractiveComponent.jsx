@@ -6,6 +6,8 @@ import {faKeyboard} from '@fortawesome/free-solid-svg-icons';
 import AudioRecorder from './../../common/AudioRecorder';
 import Constant from './../../common/Constant';
 
+import cheap_thrills from '../../assets/audio/cheap_thrills.mp3';
+
 class ChatInteractiveComponent extends Component {
 
   constructor(props) {
@@ -186,7 +188,7 @@ class ChatInteractiveComponent extends Component {
       <div className="chat-interactive-root">
         <audio>
           <source
-            src="http://m10.music.126.net/20190321094459/aa1a6d8852d0ea4f30836c3147f5b325/ymusic/9fe1/20d0/619a/1cd69893cbe96f0acbb17218de6cd9cc.mp3"/>
+            src={cheap_thrills}/>
         </audio>
         <button className="btn btn-info chat-interactive-toggle" onClick={() => this.toggleVoice()}>
           <FontAwesomeIcon icon={isVoice ? faKeyboard : faMicrophone}/>
