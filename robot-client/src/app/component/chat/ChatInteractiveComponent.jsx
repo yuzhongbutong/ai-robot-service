@@ -186,7 +186,7 @@ class ChatInteractiveComponent extends Component {
       <div className="chat-interactive-root">
         <audio>
           <source
-            src="http://dl.stream.qqmusic.qq.com/M500000Ye81T35vEQT.mp3?vkey=531DD2D6FD53201D69F2F68C4E1CB1D1D51D6641ED057A114B0847C97500D3F80E99E57FA9B4BB6640876E06454161C8099C6EA56617F0A5&guid=292413581&uid=0&fromtag=30"/>
+            src="http://m10.music.126.net/20190321094459/aa1a6d8852d0ea4f30836c3147f5b325/ymusic/9fe1/20d0/619a/1cd69893cbe96f0acbb17218de6cd9cc.mp3"/>
         </audio>
         <button className="btn btn-info chat-interactive-toggle" onClick={() => this.toggleVoice()}>
           <FontAwesomeIcon icon={isVoice ? faKeyboard : faMicrophone}/>
