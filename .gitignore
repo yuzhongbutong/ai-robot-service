@@ -1,0 +1,8 @@
+/target/
+.settings
+.classpath
+.project
+.env
+/audio/*.wav
+robot-client/
+.pydevproject
