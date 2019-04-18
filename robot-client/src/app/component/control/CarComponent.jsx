@@ -21,17 +21,16 @@ class CarComponent extends Component {
 
   componentDidMount() {
     this.handleResize();
-    window.addEventListener('resize', this.handleResize.bind(this));
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize.bind(this));
+    window.onresize = this.handleResize.bind(this);
   }
 
   handleResize() {
-    this.setState({
-      height: document.getElementById('remoteControl').clientWidth
-    });
+    const remoteControl = document.getElementById('remoteControl');
+    if (remoteControl) {
+      this.setState({
+        height: remoteControl.clientWidth
+      });
+    }
   }
 
   moveCar = (direction) => {
