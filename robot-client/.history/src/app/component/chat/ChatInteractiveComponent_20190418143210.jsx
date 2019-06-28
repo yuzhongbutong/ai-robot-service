@@ -34,13 +34,8 @@ class ChatInteractiveComponent extends Component {
     const {socket} = this.props;
     socket.on('audio', (data) => {
       if (data) {
-        const jsonData = JSON.parse(data);
-        if (jsonData.statusCode === 200) {
-          this.pushMessage(jsonData.text, Constant.MSG_FROM_CUSTOM);
-          this.setResponse(jsonData.text);
-        } else {
-          this.pushMessage(jsonData.error, Constant.MSG_FROM_CUSTOM);
-        }
+        this.pushMessage(data, Constant.MSG_FROM_CUSTOM);
+        this.setResponse(data);
       } else {
         this.pushMessage('Sorry, I can\'t recognize your voice. Please try again.', Constant.MSG_FROM_ROBOT);
       }
@@ -54,7 +49,7 @@ class ChatInteractiveComponent extends Component {
           const player = document.querySelector('audio');
           if (result.command.music === '播放') {
             player.play();
-          } else if (result.command.music === '关闭') {
+          } else if (result.command.music === '停止') {
             player.pause();
           }
         }

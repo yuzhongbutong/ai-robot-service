@@ -75,13 +75,18 @@ public class SocketHandlerController {
 
 	@OnEvent(value = RobotConstant.SOCKET_EVENT_AUDIO)
 	public void onEventAudio(SocketIOClient socketIOClient, AckRequest ackRequest, byte[] data) throws JSONException {
-		String text = null;
 		String strResult = this.voiceService.getTextByAudio(data);
-		if (strResult != null && !strResult.isEmpty()) {
-			JSONObject result = new JSONObject(strResult);
-			text = result.getString("data");
+		JSONObject result = new JSONObject(strResult);
+		String text = result.getString("data");
+		JSONObject payload = new JSONObject();
+		if (text == null || "".equals(text)) {
+			payload.put("statusCode", 500);
+			payload.put("error", result.getString("desc"));
+		} else {
+			payload.put("statusCode", 200);
+			payload.put("text", text);
 		}
-		socketIOClient.sendEvent(RobotConstant.SOCKET_EVENT_AUDIO, text);
+		socketIOClient.sendEvent(RobotConstant.SOCKET_EVENT_AUDIO, payload.toString());
 	}
 
 	@OnEvent(value = RobotConstant.SOCKET_EVENT_ANALYZER)

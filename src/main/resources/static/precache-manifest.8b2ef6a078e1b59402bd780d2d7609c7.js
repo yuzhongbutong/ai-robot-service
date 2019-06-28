@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/static/media/cheap_thrills.1cd69893.mp3"
   },
   {
-    "revision": "cafccd9f05d23d545a10",
+    "revision": "8973aae1f23f885bb846",
     "url": "/static/css/main.fd97156e.chunk.css"
   },
   {
@@ -24,16 +24,16 @@ self.__precacheManifest = [
     "url": "/static/media/avatar_robot.fdd8ad25.png"
   },
   {
-    "revision": "cafccd9f05d23d545a10",
-    "url": "/static/js/main.cafccd9f.chunk.js"
-  },
-  {
-    "revision": "fa2772327f55d8198301fdb8bcfc8158",
-    "url": "/static/media/glyphicons-halflings-regular.fa277232.woff"
+    "revision": "8973aae1f23f885bb846",
+    "url": "/static/js/main.8973aae1.chunk.js"
   },
   {
     "revision": "f4769f9bdb7466be65088239c12046d1",
     "url": "/static/media/glyphicons-halflings-regular.f4769f9b.eot"
+  },
+  {
+    "revision": "fa2772327f55d8198301fdb8bcfc8158",
+    "url": "/static/media/glyphicons-halflings-regular.fa277232.woff"
   },
   {
     "revision": "448c34a56d699c29117adc64c43affeb",
@@ -48,7 +48,7 @@ self.__precacheManifest = [
     "url": "/static/css/1.207aa6b7.chunk.css"
   },
   {
-    "revision": "e27b1028ec384a5f93b179e0a794bcc6",
+    "revision": "7ee7e4ee4a49dfb35fb7a5eccb386eb7",
     "url": "/index.html"
   }
 ];

@@ -1,7 +1,7 @@
 {
   "main.css": "/static/css/main.fd97156e.chunk.css",
-  "main.js": "/static/js/main.cafccd9f.chunk.js",
-  "main.js.map": "/static/js/main.cafccd9f.chunk.js.map",
+  "main.js": "/static/js/main.8973aae1.chunk.js",
+  "main.js.map": "/static/js/main.8973aae1.chunk.js.map",
   "static/css/1.207aa6b7.chunk.css": "/static/css/1.207aa6b7.chunk.css",
   "static/js/1.4f0590d3.chunk.js": "/static/js/1.4f0590d3.chunk.js",
   "static/js/1.4f0590d3.chunk.js.map": "/static/js/1.4f0590d3.chunk.js.map",
@@ -10,9 +10,9 @@
   "static/media/avatar_robot.png": "/static/media/avatar_robot.fdd8ad25.png",
   "static/media/bootstrap.css": "/static/media/glyphicons-halflings-regular.89889688.svg",
   "static/media/cheap_thrills.mp3": "/static/media/cheap_thrills.1cd69893.mp3",
-  "static/css/1.207aa6b7.chunk.css.map": "/static/css/1.207aa6b7.chunk.css.map",
   "static/css/main.fd97156e.chunk.css.map": "/static/css/main.fd97156e.chunk.css.map",
+  "static/css/1.207aa6b7.chunk.css.map": "/static/css/1.207aa6b7.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.cf433ad2a4602b0b206594aa7c14b5d7.js": "/precache-manifest.cf433ad2a4602b0b206594aa7c14b5d7.js",
+  "precache-manifest.8b2ef6a078e1b59402bd780d2d7609c7.js": "/precache-manifest.8b2ef6a078e1b59402bd780d2d7609c7.js",
   "service-worker.js": "/service-worker.js"
 }

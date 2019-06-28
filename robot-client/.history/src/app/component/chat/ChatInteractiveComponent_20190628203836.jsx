@@ -54,7 +54,7 @@ class ChatInteractiveComponent extends Component {
           const player = document.querySelector('audio');
           if (result.command.music === '播放') {
             player.play();
-          } else if (result.command.music === '关闭') {
+          } else if (result.command.music === '停止') {
             player.pause();
           }
         }
